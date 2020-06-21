@@ -2,6 +2,7 @@ package com.teo.chess.pieces;
 
 import com.teo.chess.Location;
 import com.teo.chess.Move;
+import com.teo.chess.ascii.AsciiBoardBuilder;
 import com.teo.chess.gui.Board;
 import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ public class KnightCaptureTest {
             this.yVel = yVel;
         }
     }
+
     @Test
     public void testGetCapturesOneLeftTwoUp() {
         verifyValidCapture(centerOfBoard, KnightMove.ONE_LEFT_TWO_UP);
@@ -72,16 +74,14 @@ public class KnightCaptureTest {
     }
 
     private void verifyValidCapture(Location startLocation, KnightMove direction) {
-        Knight knight = createKnight();
+        Knight knight = new Knight(startLocation, null, PieceColor.WHITE);
         Location endLocation = new Location(startLocation.getBoardX() + direction.xVel, startLocation.getBoardY() + direction.yVel);
         Move[] possibleCaptures = knight.getCaptures(startLocation);
 
         System.out.println("Verify that knight can capture in direction " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(knight));
         int numFound = MoveFilter.getStaticCaptures(endLocation, possibleCaptures).length;
         assertEquals(1, numFound);
     }
-
-    private Knight createKnight() {
-        return new Knight(new Location(0, 0), null, PieceColor.WHITE);
-    }
 }
+

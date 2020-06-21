@@ -3,6 +3,7 @@ package com.teo.chess.pieces;
 import com.teo.chess.Direction;
 import com.teo.chess.Location;
 import com.teo.chess.Move;
+import com.teo.chess.ascii.AsciiBoardBuilder;
 import com.teo.chess.gui.Board;
 import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
@@ -81,24 +82,23 @@ class BishopCaptureTest {
     }
 
     private void verifyValidCapture(Location startLocation, Direction direction) {
-        Bishop bishop = createBishop();
+        Bishop bishop = new Bishop(startLocation, null, PieceColor.WHITE);
         Move[] possibleCaptures = bishop.getCaptures(startLocation);
 
         System.out.println("Verify that bishop can capture in direction " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(bishop));
         int numFound = MoveFilter.getContinousCaptures(direction, possibleCaptures).length;
         assertEquals(1, numFound);
     }
 
     private void verifyInvalidCapture(Location startLocation, Direction direction) {
-        Bishop bishop = createBishop();
+        Bishop bishop = new Bishop(startLocation, null, PieceColor.WHITE);
         Move[] possibleCaptures = bishop.getCaptures(startLocation);
 
         System.out.println("Verify that bishop cannot capture in direction " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(bishop));
         int numFound = MoveFilter.getContinousCaptures(direction, possibleCaptures).length;
         assertNotEquals(1, numFound);
     }
-
-    private Bishop createBishop() {
-        return new Bishop(new Location(0, 0), null, PieceColor.WHITE);
-    }
 }
+

@@ -4,6 +4,7 @@ import com.teo.chess.Direction;
 import com.teo.chess.Location;
 import com.teo.chess.Move;
 import com.teo.chess.MoveType;
+import com.teo.chess.ascii.AsciiBoardBuilder;
 import com.teo.chess.gui.Board;
 import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
@@ -104,37 +105,35 @@ public class KingMoveTest {
 
     @Test
     public void testGetMovesetOnlyStaticMoves() {
-        King king = createKing();
-        Location startLocation = new Location(4, 4);
-        Move[] possibleMoves = king.getMoveset(startLocation);
+        King king = new King(centerOfBoard, null, PieceColor.WHITE);
+        Move[] possibleMoves = king.getMoveset(centerOfBoard);
 
         System.out.println("Verify that king cannot move continuously");
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(king));
         long numFound = Arrays.stream(possibleMoves).filter(m -> m.getMoveType().equals(MoveType.CONTINUOUS)).count();
         assertEquals(0, numFound);
     }
 
 
     private void verifyValidMove(Location startLocation, Direction direction) {
-        King king = createKing();
+        King king = new King(startLocation, null, PieceColor.WHITE);
         Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleMoves = king.getMoveset(startLocation);
 
         System.out.println("Verify that king can move " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(king));
         int numFound = MoveFilter.getStaticMoves(endLocation, possibleMoves).length;
         assertEquals(1, numFound);
     }
 
     private void verifyInvalidMove(Location startLocation, Direction direction) {
-        King king = createKing();
+        King king = new King(startLocation, null, PieceColor.WHITE);
         Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleMoves = king.getMoveset(startLocation);
 
         System.out.println("Verify that king cannot move " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(king));
         int numFound = MoveFilter.getStaticMoves(endLocation, possibleMoves).length;
         assertNotEquals(1, numFound);
-    }
-
-    private King createKing() {
-        return new King(new Location(0, 0), null, PieceColor.WHITE);
     }
 }

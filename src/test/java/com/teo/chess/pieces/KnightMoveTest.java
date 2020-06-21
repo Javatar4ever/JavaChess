@@ -1,14 +1,13 @@
 package com.teo.chess.pieces;
 
-import com.teo.chess.Direction;
 import com.teo.chess.Location;
 import com.teo.chess.Move;
+import com.teo.chess.ascii.AsciiBoardBuilder;
 import com.teo.chess.gui.Board;
 import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class KnightMoveTest {
 
@@ -74,16 +73,13 @@ public class KnightMoveTest {
     }
 
     private void verifyValidMove(Location startLocation, KnightMove direction) {
-        Knight knight = createKnight();
+        Knight knight = new Knight(startLocation, null, PieceColor.WHITE);
         Location endLocation = new Location(startLocation.getBoardX() + direction.xVel, startLocation.getBoardY() + direction.yVel);
         Move[] possibleMoves = knight.getMoveset(startLocation);
 
         System.out.println("Verify that knight can move " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(knight));
         int numFound = MoveFilter.getStaticMoves(endLocation, possibleMoves).length;
         assertEquals(1, numFound);
-    }
-
-    private Knight createKnight() {
-        return new Knight(new Location(0, 0), null, PieceColor.WHITE);
     }
 }

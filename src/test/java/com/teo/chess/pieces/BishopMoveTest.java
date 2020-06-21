@@ -5,6 +5,7 @@ import com.teo.chess.Location;
 import com.teo.chess.Move;
 import com.teo.chess.gui.Board;
 import com.teo.chess.gui.PieceColor;
+import com.teo.chess.ascii.AsciiBoardBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,24 +81,22 @@ class BishopMoveTest {
     }
 
     private void verifyValidMove(Location startLocation, Direction direction) {
-        Bishop bishop = createBishop();
+        Bishop bishop = new Bishop(startLocation, null, PieceColor.WHITE);
         Move[] possibleMoves = bishop.getMoveset(startLocation);
 
         System.out.println("Verify that bishop can move " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(bishop));
         int numFound = MoveFilter.getContinousMoves(direction, possibleMoves).length;
         assertEquals(1, numFound);
     }
 
     private void verifyInvalidMove(Location startLocation, Direction direction) {
-        Bishop bishop = createBishop();
+        Bishop bishop = new Bishop(startLocation, null, PieceColor.WHITE);
         Move[] possibleMoves = bishop.getMoveset(startLocation);
 
         System.out.println("Verify that bishop cannot move " + direction);
+        System.out.println(AsciiBoardBuilder.getAsciiBoard(bishop));
         int numFound = MoveFilter.getContinousMoves(direction, possibleMoves).length;
         assertNotEquals(1, numFound);
-    }
-
-    private Bishop createBishop() {
-        return new Bishop(new Location(0, 0), null, PieceColor.WHITE);
     }
 }
