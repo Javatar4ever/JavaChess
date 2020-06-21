@@ -1,15 +1,13 @@
 package com.teo.chess.gui;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
 public class SidePanel extends JPanel {
 
-    private JTable table;
-    private DefaultTableModel dtm;
+    private final DefaultTableModel dtm;
     private int moveCounter;
 
     public SidePanel() {
@@ -19,8 +17,7 @@ public class SidePanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBackground(Color.WHITE);
 
-
-        table = new JTable();
+        JTable table = new JTable();
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setCellSelectionEnabled(true);
         dtm = new DefaultTableModel(0, 0) {
@@ -30,7 +27,7 @@ public class SidePanel extends JPanel {
             }
         };
 
-        String header[] = new String[] {"White", "Black"};
+        String[] header = new String[] {"White", "Black"};
         dtm.setColumnIdentifiers(header);
         table.setModel(dtm);
 
@@ -42,15 +39,12 @@ public class SidePanel extends JPanel {
     }
 
     public void addMoveToList(String move) {
-
         if (moveCounter % 2 == 0) {
-            dtm.addRow(new String[]{Integer.toString((moveCounter / 2) + 1) + ". " + move, ""});
+            dtm.addRow(new String[]{(moveCounter / 2) + 1 + ". " + move, ""});
         }
         else {
             dtm.setValueAt(move, moveCounter / 2, 1);
         }
-
         moveCounter++;
-
     }
 }

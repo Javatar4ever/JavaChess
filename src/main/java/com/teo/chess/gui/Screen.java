@@ -6,13 +6,11 @@ import java.awt.*;
 
 public class Screen extends JFrame {
 
-    private Board board;
+    private final Board board;
     private SidePanel sidepanel;
 
     public Screen(Board board) {
-
         this.board = board;
-
         setupScreen();
     }
 

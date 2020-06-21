@@ -11,8 +11,8 @@ import com.teo.chess.states.InitialState;
 
 public class Game implements Runnable {
 
-    public static Spritesheet spritesheet = new Spritesheet("/spritesheet.png", 360, 180, Board.TILE_SIZE);
-    public static Spritesheet lettersSheet = new Spritesheet("/letters.png", 99, 54, TextLayer.LETTER_SIZE);
+    public static final Spritesheet SPRITESHEET = new Spritesheet("/spritesheet.png", 360, 180, Board.TILE_SIZE);
+    public static final Spritesheet LETTERS_SHEET = new Spritesheet("/letters.png", 99, 54, TextLayer.LETTER_SIZE);
     private Board board;
     private boolean running;
 
@@ -37,7 +37,7 @@ public class Game implements Runnable {
         Screen screen = new Screen(board);
         BoardState state = new InitialState();
         board.loadState(state);
-        MoveValidator validator = new MoveValidator(board);
+        MoveValidator validator = new MoveValidator();
         Mouse mouseListener = new Mouse(board, validator, screen);
         board.addMouseMotionListener(mouseListener);
         board.addMouseListener(mouseListener);

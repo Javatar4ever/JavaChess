@@ -1,6 +1,7 @@
 package com.teo.chess;
 
 public enum Direction {
+    NO_DIRECTION(0, 0),
     UP(0, -1),
     DOWN(0, 1),
     LEFT(-1, 0),
@@ -10,8 +11,8 @@ public enum Direction {
     DOWN_LEFT(-1, 1),
     DOWN_RIGHT(1, 1);
 
-    private int xDir;
-    private int yDir;
+    private final int xDir;
+    private final int yDir;
 
     Direction(int xDir, int yDir) {
         this.xDir = xDir;

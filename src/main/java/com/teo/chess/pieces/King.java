@@ -11,14 +11,8 @@ import java.util.ArrayList;
 
 public class King extends Piece {
 
-    private boolean can_castle = true; //changes to false when king moves
-
     public King(Location location, Sprite sprite, PieceColor color) {
         super(PieceType.KING, location, sprite, color, "K");
-    }
-
-    public King(Piece king) {
-        this(new Location(king.getLocation()), king.getSprite(), king.getColor());
     }
 
     @Override
@@ -46,7 +40,7 @@ public class King extends Piece {
         if (y < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.STATIC, new Location(x, y + 1))); //down
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
     public Move[] getCaptures(Location startLocation) {
@@ -73,6 +67,6 @@ public class King extends Piece {
         if (y < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x, y + 1))); //down
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 }

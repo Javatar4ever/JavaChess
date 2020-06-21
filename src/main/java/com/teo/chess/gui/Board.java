@@ -29,7 +29,7 @@ public class Board extends Canvas {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         renderBoardLayer();
     }
-int c = 0;
+
     /**
      * Method that gets called to render board
      */
@@ -91,8 +91,9 @@ int c = 0;
 
     /**
      * Method for retrieving a static piece from the current board state. Returns null if there is no piece to retrieve.
-     * @param location
-     * @return
+     *
+     * @param location Location to retrieve piece from
+     * @return Piece at location
      */
     public Piece getPiece(Location location) {
         int x = location.getBoardX();
@@ -128,8 +129,8 @@ int c = 0;
      * Renders the board. Is only called at startup.
      */
     private void renderBoardLayer() {
-        Sprite black = new Sprite(1, 2, Game.spritesheet);
-        Sprite white = new Sprite(0, 2, Game.spritesheet);
+        Sprite black = new Sprite(1, 2, Game.SPRITESHEET);
+        Sprite white = new Sprite(0, 2, Game.SPRITESHEET);
 
         for (int y = 0; y < TILES_ACROSS; y++) {
             for (int x = 0; x < TILES_ACROSS; x++) {
@@ -143,7 +144,7 @@ int c = 0;
     }
 
     /**
-     * Loads gamestate into static pieces
+     * Loads game state into static pieces
      * @param state : The state to be
      */
     public void loadState(BoardState state) {

@@ -16,11 +16,6 @@ public class Knight extends Piece {
         super(PieceType.KNIGHT, location, sprite, color, "N");
     }
 
-    public Knight(Piece knight) {
-        this(new Location(knight.getLocation()), knight.getSprite(), knight.getColor());
-    }
-
-    @Override
     public Move[] getMoveset(Location startLocation) {
         ArrayList<Move> moveset = new ArrayList<>();
 
@@ -44,7 +39,7 @@ public class Knight extends Piece {
         if (y < Board.TILES_ACROSS - 2 && x < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y + 2)));//fourth right
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
     public Move[] getCaptures(Location startLocation) {
@@ -70,6 +65,6 @@ public class Knight extends Piece {
         if (y < Board.TILES_ACROSS - 2 && x < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y + 2)));//fourth right
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 }

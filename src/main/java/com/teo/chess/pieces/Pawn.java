@@ -16,10 +16,6 @@ public class Pawn extends Piece {
         super(PieceType.PAWN, location, sprite, color, "");
     }
 
-    public Pawn(Piece pawn) {
-        this(new Location(pawn.getLocation()), pawn.getSprite(), pawn.getColor());
-    }
-
     public Move[] getMoveset(Location startLocation) {
         ArrayList<Move> moveset = new ArrayList<>();
 
@@ -39,7 +35,7 @@ public class Pawn extends Piece {
                 moveset.add(new Move(MoveType.PAWN_START, new Location(x, y + 2)));
         }
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
     public Move[] getCaptures(Location startLocation) {
@@ -61,7 +57,7 @@ public class Pawn extends Piece {
                 moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y + 1)));
         }
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
 

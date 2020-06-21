@@ -1,27 +1,20 @@
 package com.teo.chess.graphics;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Spritesheet {
 
-    private String path;
-    public int width;
-    public int height;
-    public int spriteSize;
-
-    public int[] pixels;
-
-
+    private final String path;
+    public final int spriteSize;
+    public final int[] pixels;
+    public final int width;
 
     public Spritesheet(String path, int width, int height, int spriteSize) {
         this.path = path;
-        this.width = width;
-        this.height = height;
         this.spriteSize = spriteSize;
+        this.width = width;
         pixels = new int[width * height];
         load();
     }

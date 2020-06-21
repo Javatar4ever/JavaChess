@@ -15,13 +15,14 @@ import com.teo.chess.states.BoardState;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Arrays;
 
 
 public class Mouse implements MouseListener, MouseMotionListener{
 
-    private Board board;
-    private MoveValidator validator;
-    private Screen screen;
+    private final Board board;
+    private final MoveValidator validator;
+    private final Screen screen;
     private Piece currentPiece;
 
     private Location startLocation;
@@ -33,9 +34,9 @@ public class Mouse implements MouseListener, MouseMotionListener{
     private boolean isCheck = false;
     private boolean isMate = false;
 
-    private Sprite moveSprite = new Sprite(2,2, Game.spritesheet);
-    private Sprite captureSprite = new Sprite(3,2, Game.spritesheet);
-    private Sprite recentSprite = new Sprite(4,2, Game.spritesheet);
+    private final Sprite moveSprite = new Sprite(2,2, Game.SPRITESHEET);
+    private final Sprite captureSprite = new Sprite(3,2, Game.SPRITESHEET);
+    private final Sprite recentSprite = new Sprite(4,2, Game.SPRITESHEET);
 
     public Mouse(Board board, MoveValidator validator, Screen screen) {
         this.board = board;
@@ -45,7 +46,7 @@ public class Mouse implements MouseListener, MouseMotionListener{
 
     /**
      * Gets called when mouse button is pressed. Checks so that the button triggering the event is the left mouse button.
-     * @param e
+     * @param e MouseEvent
      */
     public synchronized void mousePressed(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
@@ -62,11 +63,11 @@ public class Mouse implements MouseListener, MouseMotionListener{
                     moveLocations = validator.getPossibleMoves(currentPiece, new BoardState(board.staticPieces));
                     captureLocations = validator.getPossibleCaptures(currentPiece, new BoardState(board.staticPieces), true);
 
-                    for (int i = 0; i < moveLocations.length; i++) {
-                        LayerType.OVERLAY.getObj().renderSprite(moveSprite, moveLocations[i]);
+                    for (Location moveLocation : moveLocations) {
+                        LayerType.OVERLAY.getObj().renderSprite(moveSprite, moveLocation);
                     }
-                    for (int i = 0; i < captureLocations.length; i++) {
-                        LayerType.OVERLAY.getObj().renderSprite(captureSprite, captureLocations[i]);
+                    for (Location captureLocation : captureLocations) {
+                        LayerType.OVERLAY.getObj().renderSprite(captureSprite, captureLocation);
                     }
                 }
             }
@@ -75,7 +76,7 @@ public class Mouse implements MouseListener, MouseMotionListener{
 
     /**
      * Updates location of the selected piece
-     * @param e
+     * @param e MouseEvent
      */
     public synchronized void mouseDragged(MouseEvent e) {
         if (currentPiece != null) {
@@ -96,7 +97,7 @@ public class Mouse implements MouseListener, MouseMotionListener{
     /**
      * Gets called when mouse button is released. Checks whether the current location exists within the possible locations.
      * If it does, update piece to that location. If it does not, reset to starting location and display error message.
-     * @param e
+     * @param e MouseEvent
      */
     public synchronized void mouseReleased(MouseEvent e) {
 
@@ -109,14 +110,13 @@ public class Mouse implements MouseListener, MouseMotionListener{
 
             Location currentLocation = new Location(getX(e) / Board.TILE_SIZE, getY(e) / Board.TILE_SIZE);
 
-            if (containsLocation(currentLocation, moveLocations)) {
+            if (Arrays.asList(moveLocations).contains(currentLocation)) {
                 endLocation = currentLocation;
             }
-            else if (containsLocation(currentLocation, captureLocations)) {
+            else if (Arrays.asList(captureLocations).contains(currentLocation)) {
                 endLocation = currentLocation;
                 isCapture = true;
-            }
-            else {
+            } else {
                 currentPiece.setLocation(startLocation);
                 board.setPieceAsStatic(currentPiece, startLocation);
                 currentPiece = null;
@@ -151,45 +151,24 @@ public class Mouse implements MouseListener, MouseMotionListener{
     }
 
     /**
-     * Method that checks if a board location exists in an array of locations. It does this by using the isSameTile method
-     * from the Location class.
-     *
-     * @param location : Location to check if it is included
-     * @param locations : Array of locations to search in
-     * @return : True if array contains location, false if it does not
-     */
-    private boolean containsLocation(Location location, Location[] locations) {
-        for (int i = 0; i < locations.length; i++) {
-            if (location.isSameTile(locations[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Gets called after successful move and rendersStandard Algebraic Notation (SAN). The SAN text gets sent to the list.
      */
     private void renderSAN() {
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(
-                ((currentPiece.getType() == PieceType.PAWN && isCapture) ?
+        String san = (currentPiece.getType() == PieceType.PAWN && isCapture) ?
                         startLocation.getSanName().substring(0,1) :
-                        currentPiece.getSanName()));
+                        currentPiece.getSanName();
 
-        stringBuilder.append((isCapture ? "x" : ""));
-        stringBuilder.append(endLocation.getSanName());
-        stringBuilder.append((isCheck ? "+" : ""));
-        stringBuilder.append((isMate ? "#" : ""));
+        san += isCapture ? "x" : "";
+        san += endLocation.getSanName();
+        san += isCheck ? "+" : "";
+        san += isMate ? "#" : "";
 
-        screen.updateList(stringBuilder.toString());
+        screen.updateList(san);
     }
 
     /**
      * Transforms x location from MouseEvent so it is within the board's boundaries
-     * @param e
+     * @param e MouseEvent
      * @return Transformed x value
      */
     private int getX(MouseEvent e) {
@@ -199,7 +178,7 @@ public class Mouse implements MouseListener, MouseMotionListener{
 
     /**
      * Transforms y location from MouseEvent so it is within the board's boundaries
-     * @param e
+     * @param e MouseEvent
      * @return Transformed y value
      */
     private int getY(MouseEvent e) {

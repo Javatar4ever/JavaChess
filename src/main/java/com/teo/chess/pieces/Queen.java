@@ -17,10 +17,6 @@ public class Queen extends Piece {
         super(PieceType.QUEEN, location, sprite, color, "Q");
     }
 
-    public Queen(Piece queen) {
-        this(new Location(queen.getLocation()), queen.getSprite(), queen.getColor());
-    }
-
     @Override
     public Move[] getMoveset(Location startLocation) {
         ArrayList<Move> moveset = new ArrayList<>();
@@ -46,7 +42,7 @@ public class Queen extends Piece {
         if (y < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CONTINUOUS, new Location(x, y + 1), Direction.DOWN));
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
     public Move[] getCaptures(Location startLocation) {
@@ -73,6 +69,6 @@ public class Queen extends Piece {
         if (y < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x, y + 1), Direction.DOWN));
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 }

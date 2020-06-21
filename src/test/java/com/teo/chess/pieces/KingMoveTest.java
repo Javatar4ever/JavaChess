@@ -9,94 +9,95 @@ import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KingMoveTest {
 
+    private final Location centerOfBoard = new Location(Board.TILES_ACROSS / 2, Board.TILES_ACROSS / 2);
+
     //Verify King can move in all valid directions
 
     @Test
     public void testGetMovesetUp() {
-        verifyValidMove(4, 4, Direction.UP);
+        verifyValidMove(centerOfBoard, Direction.UP);
     }
 
     @Test
     public void testGetMovesetDown() {
-        verifyValidMove(4, 4, Direction.DOWN);
+        verifyValidMove(centerOfBoard, Direction.DOWN);
     }
 
     @Test
     public void testGetMovesetLeft() {
-        verifyValidMove(4, 4, Direction.LEFT);
+        verifyValidMove(centerOfBoard, Direction.LEFT);
     }
 
     @Test
     public void testGetMovesetRight() {
-        verifyValidMove(4, 4, Direction.RIGHT);
+        verifyValidMove(centerOfBoard, Direction.RIGHT);
     }
 
     @Test
     public void testGetMovesetUpLeft() {
-        verifyValidMove(4, 4, Direction.UP_LEFT);
+        verifyValidMove(centerOfBoard, Direction.UP_LEFT);
     }
 
     @Test
     public void testGetMovesetUpRight() {
-        verifyValidMove(4, 4, Direction.UP_RIGHT);
+        verifyValidMove(centerOfBoard, Direction.UP_RIGHT);
     }
 
     @Test
     public void testGetMovesetDownLeft() {
-        verifyValidMove(4, 4, Direction.DOWN_LEFT);
+        verifyValidMove(centerOfBoard, Direction.DOWN_LEFT);
     }
 
     @Test
     public void testGetMovesetDownRight() {
-        verifyValidMove(4, 4, Direction.DOWN_RIGHT);
+        verifyValidMove(centerOfBoard, Direction.DOWN_RIGHT);
     }
 
     //Verify King cannot move outside Board tiles
 
     @Test
     public void testGetMovesetInvalidUp() {
-        verifyInvalidMove(0, 0, Direction.UP);
+        verifyInvalidMove(new Location(0, 0), Direction.UP);
     }
 
     @Test
     public void testGetMovesetInvalidDown() {
-        verifyInvalidMove(0, Board.TILES_ACROSS - 1, Direction.DOWN);
+        verifyInvalidMove(new Location(0, Board.TILES_ACROSS - 1), Direction.DOWN);
     }
 
     @Test
     public void testGetMovesetInvalidLeft() {
-        verifyInvalidMove(0, 0, Direction.LEFT);
+        verifyInvalidMove(new Location(0, 0), Direction.LEFT);
     }
 
     @Test
     public void testGetMovesetInvalidRight() {
-        verifyInvalidMove(Board.TILES_ACROSS - 1, 0, Direction.RIGHT);
+        verifyInvalidMove(new Location(Board.TILES_ACROSS - 1, 0), Direction.RIGHT);
     }
 
     @Test
     public void testGetMovesetInvalidUpLeft() {
-        verifyInvalidMove(0, 0, Direction.UP_LEFT);
+        verifyInvalidMove(new Location(0, 0), Direction.UP_LEFT);
     }
 
     @Test
     public void testGetMovesetInvalidUpRight() {
-        verifyInvalidMove(Board.TILES_ACROSS - 1, 0, Direction.UP_RIGHT);
+        verifyInvalidMove(new Location(Board.TILES_ACROSS - 1, 0), Direction.UP_RIGHT);
     }
 
     @Test
     public void testGetMovesetInvalidDownLeft() {
-        verifyInvalidMove(0, Board.TILES_ACROSS - 1, Direction.DOWN_LEFT);
+        verifyInvalidMove(new Location(0, Board.TILES_ACROSS - 1), Direction.DOWN_LEFT);
     }
 
     @Test
     public void testGetMovesetInvalidDownRight() {
-        verifyInvalidMove(Board.TILES_ACROSS - 1, Board.TILES_ACROSS - 1, Direction.DOWN_RIGHT);
+        verifyInvalidMove(new Location(Board.TILES_ACROSS - 1, Board.TILES_ACROSS - 1), Direction.DOWN_RIGHT);
     }
 
     //Verify King cannot move continuously
@@ -113,10 +114,9 @@ public class KingMoveTest {
     }
 
 
-    private void verifyValidMove(int startX, int startY, Direction direction) {
+    private void verifyValidMove(Location startLocation, Direction direction) {
         King king = createKing();
-        Location startLocation = new Location(startX, startY);
-        Location endLocation = new Location(startX + direction.getXDir(), startY + direction.getYDir());
+        Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleMoves = king.getMoveset(startLocation);
 
         System.out.println("Verify that king can move " + direction);
@@ -124,10 +124,9 @@ public class KingMoveTest {
         assertEquals(1, numFound);
     }
 
-    private void verifyInvalidMove(int startX, int startY, Direction direction) {
+    private void verifyInvalidMove(Location startLocation, Direction direction) {
         King king = createKing();
-        Location startLocation = new Location(startX, startY);
-        Location endLocation = new Location(startX + direction.getXDir(), startY + direction.getYDir());
+        Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleMoves = king.getMoveset(startLocation);
 
         System.out.println("Verify that king cannot move " + direction);

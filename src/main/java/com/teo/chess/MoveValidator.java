@@ -6,14 +6,9 @@ import com.teo.chess.pieces.*;
 import com.teo.chess.states.BoardState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MoveValidator {
-
-    private Board board;
-
-    public MoveValidator(Board board) {
-        this.board = board;
-    }
 
     /**
      * Method that returns all possible captures for one piece in the state that is provided.
@@ -27,22 +22,22 @@ public class MoveValidator {
         Location start = piece.getLocation();
         Move[] moveset = piece.getMoveset(start);
 
-        for (int i = 0; i < moveset.length; i++) {
+        for (Move move : moveset) {
 
-            MoveType moveType = moveset[i].getMoveType();
+            MoveType moveType = move.getMoveType();
 
-            switch(moveType) {
+            switch (moveType) {
                 case PAWN_START:
                 case STATIC:
-                    Location end = moveset[i].getEndLocation();
+                    Location end = move.getEndLocation();
                     if (boardState.getPiece(end) == null) {
                         if (validateMove(piece, start, end, boardState)) endlocations.add(end);
                     }
                     break;
                 case CONTINUOUS:
 
-                    int xDir = moveset[i].getxDir();
-                    int yDir = moveset[i].getyDir();
+                    int xDir = move.getxDir();
+                    int yDir = move.getyDir();
                     int x = start.getBoardX() + xDir;
                     int y = start.getBoardY() + yDir;
 
@@ -55,12 +50,12 @@ public class MoveValidator {
                         }
                         x += xDir;
                         y += yDir;
-                    } while(x >= 0 && y >= 0 && x < (Board.WIDTH / Board.TILE_SIZE) && y < (Board.HEIGHT / Board.TILE_SIZE));
+                    } while (x >= 0 && y >= 0 && x < (Board.WIDTH / Board.TILE_SIZE) && y < (Board.HEIGHT / Board.TILE_SIZE));
 
                     break;
             }
         }
-        return endlocations.toArray(new Location[endlocations.size()]);
+        return endlocations.toArray(new Location[0]);
     }
 
     /**
@@ -76,14 +71,14 @@ public class MoveValidator {
         Location start = piece.getLocation();
         Move[] moveset = piece.getCaptures(start);
 
-        for (int i = 0; i < moveset.length; i++) {
+        for (Move move : moveset) {
 
-            MoveType moveType = moveset[i].getMoveType();
+            MoveType moveType = move.getMoveType();
 
-            switch(moveType) {
+            switch (moveType) {
 
                 case CAPTURE_STATIC:
-                    Location end = moveset[i].getEndLocation();
+                    Location end = move.getEndLocation();
                     if (boardState.getPiece(end) != null && boardState.getPiece(end).getColor() != piece.getColor()) {
                         if (lookForPossibleCheck && validateMove(piece, start, end, boardState)) endlocations.add(end);
                         else if (!lookForPossibleCheck) endlocations.add(end);
@@ -91,8 +86,8 @@ public class MoveValidator {
                     break;
                 case CAPTURE_CONTINUOUS:
 
-                    int xDir = moveset[i].getxDir();
-                    int yDir = moveset[i].getyDir();
+                    int xDir = move.getxDir();
+                    int yDir = move.getyDir();
                     int x = start.getBoardX() + xDir;
                     int y = start.getBoardY() + yDir;
 
@@ -100,19 +95,20 @@ public class MoveValidator {
                         Location nextLocation = new Location(x, y);
                         if (boardState.getPiece(nextLocation) != null) {
                             if (boardState.getPiece(nextLocation).getColor() != piece.getColor()) {
-                                if (lookForPossibleCheck && validateMove(piece, start, nextLocation, boardState)) endlocations.add(nextLocation);
+                                if (lookForPossibleCheck && validateMove(piece, start, nextLocation, boardState))
+                                    endlocations.add(nextLocation);
                                 else if (!lookForPossibleCheck) endlocations.add(nextLocation);
                             }
                             break;
                         }
                         x += xDir;
                         y += yDir;
-                    } while(x >= 0 && y >= 0 && x < (Board.WIDTH / Board.TILE_SIZE) && y < (Board.HEIGHT / Board.TILE_SIZE));
+                    } while (x >= 0 && y >= 0 && x < (Board.WIDTH / Board.TILE_SIZE) && y < (Board.HEIGHT / Board.TILE_SIZE));
 
                     break;
             }
         }
-        return endlocations.toArray(new Location[endlocations.size()]);
+        return endlocations.toArray(new Location[0]);
     }
 
 
@@ -127,7 +123,7 @@ public class MoveValidator {
      * @return : True if the move will not result in a check, false if it will
      */
     private boolean validateMove(Piece piece, Location startLocation, Location endLocation, BoardState boardState) {
-        Piece[][] tempState = Piece.copyPieceArray(boardState.getState());
+        Piece[][] tempState = Arrays.stream(boardState.getState()).map(Piece[]::clone).toArray(Piece[][]::new);
 
         int startX = startLocation.getBoardX();
         int startY = startLocation.getBoardY();
@@ -137,12 +133,7 @@ public class MoveValidator {
         tempState[endY][endX] = piece;
         tempState[startY][startX] = null;
 
-        if (isCheck(piece.getColor(), new BoardState(tempState))) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return !isCheck(piece.getColor(), new BoardState(tempState));
     }
 
     /**
@@ -164,8 +155,8 @@ public class MoveValidator {
                 if (piece != null && piece.getColor() != color) {
 
                     Location[] captures = getPossibleCaptures(piece, boardState, false);
-                    for (int i = 0; i < captures.length; i++) {
-                        if (boardState.getPiece(captures[i]).getType() == PieceType.KING) {
+                    for (Location capture : captures) {
+                        if (boardState.getPiece(capture).getType() == PieceType.KING) {
                             return true;
                         }
                     }
@@ -196,7 +187,7 @@ public class MoveValidator {
                     Location[] moveset = getPossibleMoves(piece, boardState);
                     Location[] captures = getPossibleCaptures(piece, boardState, true);
 
-                    if(moveset.length != 0 || captures.length != 0) {
+                    if (moveset.length != 0 || captures.length != 0) {
                         return false;
                     }
                 }

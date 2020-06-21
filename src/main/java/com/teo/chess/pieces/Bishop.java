@@ -13,16 +13,9 @@ import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
-    private Location location;
-
     public Bishop(Location location, Sprite sprite, PieceColor color) {
         super(PieceType.BISHOP, location, sprite, color, "B");
     }
-    public Bishop(Piece bishop) {
-        this(new Location(bishop.getLocation()), bishop.getSprite(), bishop.getColor());
-    }
-
-    @Override
     public Move[] getMoveset(Location startLocation) {
         ArrayList<Move> moveset = new ArrayList<>();
 
@@ -38,7 +31,7 @@ public class Bishop extends Piece {
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CONTINUOUS, Direction.DOWN_RIGHT));
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 
     public Move[] getCaptures(Location startLocation) {
@@ -56,6 +49,6 @@ public class Bishop extends Piece {
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
             moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, Direction.DOWN_RIGHT));
 
-        return moveset.toArray(new Move[moveset.size()]);
+        return moveset.toArray(new Move[0]);
     }
 }

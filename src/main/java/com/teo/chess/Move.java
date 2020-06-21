@@ -3,9 +3,9 @@ package com.teo.chess;
 
 public class Move {
 
-    private MoveType moveType;
-    private Location endLocation;
-    private Direction direction;
+    private final MoveType moveType;
+    private final Location endLocation;
+    private final Direction direction;
 
     public Move(MoveType moveType, Location endLocation, Direction direction) {
         this.moveType = moveType;
@@ -16,6 +16,7 @@ public class Move {
     public Move(MoveType moveType, Location endLocation) {
         this.moveType = moveType;
         this.endLocation = endLocation;
+        this.direction = Direction.NO_DIRECTION;
     }
 
     public Move(MoveType moveType, Direction direction) {

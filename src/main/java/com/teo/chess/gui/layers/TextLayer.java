@@ -7,15 +7,16 @@ import com.teo.chess.gui.Board;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Arrays;
 
 
 public class TextLayer extends Layer {
 
-    public BufferedImage image;
-    public int pixels[];
+    public final BufferedImage image;
+    public final int[] pixels;
     public static final int LETTER_SIZE = 9;
     public static final int SCALE = 3;
-    private Sprite[] letters = new Sprite[3 * 11];
+    private final Sprite[] letters = new Sprite[3 * 11];
     private int alpha = 255;
 
 
@@ -28,7 +29,7 @@ public class TextLayer extends Layer {
     private void loadSprites() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 11; x++) {
-                letters[x + y * 11] = new Sprite(x, y, Game.lettersSheet);
+                letters[x + y * 11] = new Sprite(x, y, Game.LETTERS_SHEET);
             }
         }
     }
@@ -79,7 +80,7 @@ public class TextLayer extends Layer {
 
 
         for (int i = 0; i < chars.length; i++) {
-            int ascii = (int) chars[i];
+            int ascii = chars[i];
             Location location = new Location(0, 0);
             location.setPixelX((i * (LETTER_SIZE * SCALE)) + xOffset);
             location.setPixelY(yOffset);
@@ -107,8 +108,6 @@ public class TextLayer extends Layer {
     }
 
     public void clearLayer() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
+        Arrays.fill(pixels, 0);
     }
 }

@@ -6,11 +6,12 @@ import com.teo.chess.gui.Board;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Arrays;
 
 public class Layer {
 
-    public BufferedImage image;
-    public int pixels[];
+    public final BufferedImage image;
+    public final int[] pixels;
 
     public Layer() {
         image = new BufferedImage(Board.WIDTH, Board.HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -31,8 +32,6 @@ public class Layer {
     }
 
     public void clearLayer() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
+        Arrays.fill(pixels, 0);
     }
 }

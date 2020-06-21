@@ -1,14 +1,11 @@
 package com.teo.chess.graphics;
 
-import com.teo.chess.Game;
-
-
 public class Sprite {
 
-    private int x;
-    private int y;
-    private Spritesheet spritesheet;
-    public int[] pixels;
+    private final int x;
+    private final int y;
+    private final Spritesheet spritesheet;
+    public final int[] pixels;
 
     public Sprite(int x, int y, Spritesheet spritesheet) {
         this.x = x * spritesheet.spriteSize;

@@ -9,95 +9,96 @@ import com.teo.chess.gui.PieceColor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class KingCaptureTest {
 
+    private final Location centerOfBoard = new Location(Board.TILES_ACROSS / 2, Board.TILES_ACROSS / 2);
+
     //Verify King can capture in all valid directions
 
     @Test
     public void testGetCapturesUp() {
-        verifyValidCapture(4, 4, Direction.UP);
+        verifyValidCapture(centerOfBoard, Direction.UP);
     }
 
     @Test
     public void testGetCapturesDown() {
-        verifyValidCapture(4, 4, Direction.DOWN);
+        verifyValidCapture(centerOfBoard, Direction.DOWN);
     }
 
     @Test
     public void testGetCapturesLeft() {
-        verifyValidCapture(4, 4, Direction.LEFT);
+        verifyValidCapture(centerOfBoard, Direction.LEFT);
     }
 
     @Test
     public void testGetCapturesRight() {
-        verifyValidCapture(4, 4, Direction.RIGHT);
+        verifyValidCapture(centerOfBoard, Direction.RIGHT);
     }
 
     @Test
     public void testGetCapturesUpLeft() {
-        verifyValidCapture(4, 4, Direction.UP_LEFT);
+        verifyValidCapture(centerOfBoard, Direction.UP_LEFT);
     }
 
     @Test
     public void testGetCapturesUpRight() {
-        verifyValidCapture(4, 4, Direction.UP_RIGHT);
+        verifyValidCapture(centerOfBoard, Direction.UP_RIGHT);
     }
 
     @Test
     public void testGetCapturesDownLeft() {
-        verifyValidCapture(4, 4, Direction.DOWN_LEFT);
+        verifyValidCapture(centerOfBoard, Direction.DOWN_LEFT);
     }
 
     @Test
     public void testGetCapturesDownRight() {
-        verifyValidCapture(4, 4, Direction.DOWN_RIGHT);
+        verifyValidCapture(centerOfBoard, Direction.DOWN_RIGHT);
     }
 
     //Verify King cannot capture outside Board tiles
 
     @Test
     public void testGetCapturesInvalidUp() {
-        verifyInvalidCapture(0, 0, Direction.UP);
+        verifyInvalidCapture(new Location(0, 0), Direction.UP);
     }
 
     @Test
     public void testGetCapturesInvalidDown() {
-        verifyInvalidCapture(0, Board.TILES_ACROSS - 1, Direction.DOWN);
+        verifyInvalidCapture(new Location(0, Board.TILES_ACROSS - 1), Direction.DOWN);
     }
 
     @Test
     public void testGetCapturesInvalidLeft() {
-        verifyInvalidCapture(0, 0, Direction.LEFT);
+        verifyInvalidCapture(new Location(0, 0), Direction.LEFT);
     }
 
     @Test
     public void testGetCapturesInvalidRight() {
-        verifyInvalidCapture(Board.TILES_ACROSS - 1, 0, Direction.RIGHT);
+        verifyInvalidCapture(new Location(Board.TILES_ACROSS - 1, 0), Direction.RIGHT);
     }
 
     @Test
     public void testGetCapturesInvalidUpLeft() {
-        verifyInvalidCapture(0, 0, Direction.UP_LEFT);
+        verifyInvalidCapture(new Location(0, 0), Direction.UP_LEFT);
     }
 
     @Test
     public void testGetCapturesInvalidUpRight() {
-        verifyInvalidCapture(Board.TILES_ACROSS - 1, 0, Direction.UP_RIGHT);
+        verifyInvalidCapture(new Location(Board.TILES_ACROSS - 1, 0), Direction.UP_RIGHT);
     }
 
     @Test
     public void testGetCapturesInvalidDownLeft() {
-        verifyInvalidCapture(0, Board.TILES_ACROSS - 1, Direction.DOWN_LEFT);
+        verifyInvalidCapture(new Location(0, Board.TILES_ACROSS - 1), Direction.DOWN_LEFT);
     }
 
     @Test
     public void testGetCapturesInvalidDownRight() {
-        verifyInvalidCapture(Board.TILES_ACROSS - 1, Board.TILES_ACROSS - 1, Direction.DOWN_RIGHT);
+        verifyInvalidCapture(new Location(Board.TILES_ACROSS - 1, Board.TILES_ACROSS - 1), Direction.DOWN_RIGHT);
     }
 
     //Verify King cannot capture continuously
@@ -114,10 +115,9 @@ public class KingCaptureTest {
     }
 
 
-    private void verifyValidCapture(int startX, int startY, Direction direction) {
+    private void verifyValidCapture(Location startLocation, Direction direction) {
         King king = createKing();
-        Location startLocation = new Location(startX, startY);
-        Location endLocation = new Location(startX + direction.getXDir(), startY + direction.getYDir());
+        Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleCaptures = king.getCaptures(startLocation);
 
         System.out.println("Verify that king can capture in direction " + direction);
@@ -125,10 +125,9 @@ public class KingCaptureTest {
         assertEquals(1, numFound);
     }
 
-    private void verifyInvalidCapture(int startX, int startY, Direction direction) {
+    private void verifyInvalidCapture(Location startLocation, Direction direction) {
         King king = createKing();
-        Location startLocation = new Location(startX, startY);
-        Location endLocation = new Location(startX + direction.getXDir(), startY + direction.getYDir());
+        Location endLocation = new Location(startLocation.getBoardX() + direction.getXDir(), startLocation.getBoardY() + direction.getYDir());
         Move[] possibleCaptures = king.getCaptures(startLocation);
 
         System.out.println("Verify that king cannot capture in direction " + direction);
