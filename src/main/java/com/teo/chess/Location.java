@@ -79,5 +79,15 @@ public class Location {
 
     public String getSanName() {return sanName;}
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "boardX=" + boardX +
+                ", boardY=" + boardY +
+                ", pixelX=" + pixelX +
+                ", pixelY=" + pixelY +
+                '}';
+    }
+
     public void setSanName(String sanName) {this.sanName = sanName;}
 }

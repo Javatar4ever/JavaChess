@@ -29,22 +29,22 @@ public class King extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 1, y - 1), 0, 0)); //up left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 1, y - 1))); //up left
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 1, y - 1), 0, 0)); //up right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y - 1))); //up right
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 1, y + 1), 0, 0)); //down left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 1, y + 1))); //down left
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 1, y + 1), 0, 0)); //down right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y + 1))); //down right
 
         if (y > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x, y - 1), 0, 0)); //up
+            moveset.add(new Move(MoveType.STATIC, new Location(x, y - 1))); //up
         if (x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 1, y), 0, 0)); //right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y))); //right
         if (x > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 1, y), 0, 0)); //left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 1, y))); //left
         if (y < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x, y + 1), 0, 0)); //down
+            moveset.add(new Move(MoveType.STATIC, new Location(x, y + 1))); //down
 
         return moveset.toArray(new Move[moveset.size()]);
     }
@@ -56,22 +56,22 @@ public class King extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 1, y - 1), 0, 0)); //up left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 1, y - 1))); //up left
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 1, y - 1), 0, 0)); //up right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y - 1))); //up right
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 1, y + 1), 0, 0)); //down left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 1, y + 1))); //down left
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 1, y + 1), 0, 0)); //down right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y + 1))); //down right
 
         if (y > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x, y - 1), 0, 0)); //up
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x, y - 1))); //up
         if (x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 1, y), 0, 0)); //right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y))); //right
         if (x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 1, y), 0, 0)); //left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 1, y))); //left
         if (y < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x, y + 1), 0, 0)); //down
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x, y + 1))); //down
 
         return moveset.toArray(new Move[moveset.size()]);
     }

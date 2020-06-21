@@ -1,5 +1,6 @@
 package com.teo.chess.pieces;
 
+import com.teo.chess.Direction;
 import com.teo.chess.Location;
 import com.teo.chess.Move;
 import com.teo.chess.MoveType;
@@ -29,13 +30,13 @@ public class Bishop extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x - 1, y - 1), -1, -1)); //up left
+            moveset.add(new Move(MoveType.CONTINUOUS, Direction.UP_LEFT));
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x + 1, y - 1), 1, -1)); //up right
+            moveset.add(new Move(MoveType.CONTINUOUS, Direction.UP_RIGHT));
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x - 1, y + 1), -1, 1)); //down left
+            moveset.add(new Move(MoveType.CONTINUOUS, Direction.DOWN_LEFT));
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x + 1, y + 1), 1, 1)); //down right
+            moveset.add(new Move(MoveType.CONTINUOUS, Direction.DOWN_RIGHT));
 
         return moveset.toArray(new Move[moveset.size()]);
     }
@@ -47,13 +48,13 @@ public class Bishop extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x - 1, y - 1), -1, -1)); //up left
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, Direction.UP_LEFT));
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x + 1, y - 1), 1, -1)); //up right
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, Direction.UP_RIGHT));
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x - 1, y + 1), -1, 1)); //down left
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, Direction.DOWN_LEFT));
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x + 1, y + 1), 1, 1)); //down right
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, Direction.DOWN_RIGHT));
 
         return moveset.toArray(new Move[moveset.size()]);
     }

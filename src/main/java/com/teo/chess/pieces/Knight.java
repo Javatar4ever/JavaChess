@@ -28,21 +28,21 @@ public class Knight extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 2 && x > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 1, y - 2), 0, 0)); //first left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 1, y - 2))); //first left
         if (y > 2 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 1, y - 2), 0, 0));//first right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y - 2)));//first right
         if (y > 0 && x > 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 2, y - 1), 0, 0));//second left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 2, y - 1)));//second left
         if (y > 0 && x < Board.TILES_ACROSS - 2)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 2, y - 1), 0, 0));//second right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 2, y - 1)));//second right
         if (y < Board.TILES_ACROSS - 1 && x > 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 2, y + 1), 0, 0));//third left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 2, y + 1)));//third left
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 2)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 2, y + 1), 0, 0));//third right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 2, y + 1)));//third right
         if (y < Board.TILES_ACROSS - 2 && x > 0)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x - 1, y + 2), 0, 0));//fourth left
+            moveset.add(new Move(MoveType.STATIC, new Location(x - 1, y + 2)));//fourth left
         if (y < Board.TILES_ACROSS - 2 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.STATIC, startLocation, new Location(x + 1, y + 2), 0, 0));//fourth right
+            moveset.add(new Move(MoveType.STATIC, new Location(x + 1, y + 2)));//fourth right
 
         return moveset.toArray(new Move[moveset.size()]);
     }
@@ -54,21 +54,21 @@ public class Knight extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 2 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 1, y - 2), 0, 0)); //first left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 1, y - 2))); //first left
         if (y > 2 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 1, y - 2), 0, 0));//first right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y - 2)));//first right
         if (y > 0 && x > 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 2, y - 1), 0, 0));//second left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 2, y - 1)));//second left
         if (y > 0 && x < Board.TILES_ACROSS - 2)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 2, y - 1), 0, 0));//second right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 2, y - 1)));//second right
         if (y < Board.TILES_ACROSS - 1 && x > 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 2, y + 1), 0, 0));//third left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 2, y + 1)));//third left
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 2)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 2, y + 1), 0, 0));//third right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 2, y + 1)));//third right
         if (y < Board.TILES_ACROSS - 2 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x - 1, y + 2), 0, 0));//fourth left
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x - 1, y + 2)));//fourth left
         if (y < Board.TILES_ACROSS - 2 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_STATIC, startLocation, new Location(x + 1, y + 2), 0, 0));//fourth right
+            moveset.add(new Move(MoveType.CAPTURE_STATIC, new Location(x + 1, y + 2)));//fourth right
 
         return moveset.toArray(new Move[moveset.size()]);
     }

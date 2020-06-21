@@ -72,12 +72,19 @@ int c = 0;
     public void showText(String string) {
         if (!textOnBoard) {
             textOnBoard = true;
-            (new Thread() {
-                public void run() {
-                    ((TextLayer)LayerType.TEXT.getObj()).fadeInString(string);
-                    textOnBoard = false;
-                }
-            }).start();
+            new TextThread(string).start();
+        }
+    }
+    //TODO: Workaround since mutable variable couldn't be sent to inner class
+    private class TextThread extends Thread {
+        private final String text;
+
+        public TextThread(String text) {
+            this.text = text;
+        }
+        public void run() {
+            ((TextLayer)LayerType.TEXT.getObj()).fadeInString(text);
+            textOnBoard = false;
         }
     }
 

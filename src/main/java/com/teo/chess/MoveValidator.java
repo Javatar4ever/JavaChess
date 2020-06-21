@@ -30,19 +30,21 @@ public class MoveValidator {
         for (int i = 0; i < moveset.length; i++) {
 
             MoveType moveType = moveset[i].getMoveType();
-            Location end = moveset[i].getEndLocation();
-            int xDir = moveset[i].getxDir();
-            int yDir = moveset[i].getyDir();
 
             switch(moveType) {
+                case PAWN_START:
                 case STATIC:
+                    Location end = moveset[i].getEndLocation();
                     if (boardState.getPiece(end) == null) {
                         if (validateMove(piece, start, end, boardState)) endlocations.add(end);
                     }
                     break;
                 case CONTINUOUS:
-                    int x = end.getBoardX();
-                    int y = end.getBoardY();
+
+                    int xDir = moveset[i].getxDir();
+                    int yDir = moveset[i].getyDir();
+                    int x = start.getBoardX() + xDir;
+                    int y = start.getBoardY() + yDir;
 
                     do {
                         Location nextLocation = new Location(x, y);
@@ -55,14 +57,6 @@ public class MoveValidator {
                         y += yDir;
                     } while(x >= 0 && y >= 0 && x < (Board.WIDTH / Board.TILE_SIZE) && y < (Board.HEIGHT / Board.TILE_SIZE));
 
-                    break;
-                case PAWN_START:
-                    Location firstLocation = end;
-
-                    firstLocation.setBoardY(end.getBoardY() - yDir);
-                    if (boardState.getPiece(end) == null && boardState.getPiece(firstLocation) == null) {
-                        if (validateMove(piece, start, end, boardState)) endlocations.add(end);
-                    }
                     break;
             }
         }
@@ -85,21 +79,22 @@ public class MoveValidator {
         for (int i = 0; i < moveset.length; i++) {
 
             MoveType moveType = moveset[i].getMoveType();
-            Location end = moveset[i].getEndLocation();
-            int xDir = moveset[i].getxDir();
-            int yDir = moveset[i].getyDir();
 
             switch(moveType) {
 
                 case CAPTURE_STATIC:
+                    Location end = moveset[i].getEndLocation();
                     if (boardState.getPiece(end) != null && boardState.getPiece(end).getColor() != piece.getColor()) {
                         if (lookForPossibleCheck && validateMove(piece, start, end, boardState)) endlocations.add(end);
                         else if (!lookForPossibleCheck) endlocations.add(end);
                     }
                     break;
                 case CAPTURE_CONTINUOUS:
-                    int x = end.getBoardX();
-                    int y = end.getBoardY();
+
+                    int xDir = moveset[i].getxDir();
+                    int yDir = moveset[i].getyDir();
+                    int x = start.getBoardX() + xDir;
+                    int y = start.getBoardY() + yDir;
 
                     do {
                         Location nextLocation = new Location(x, y);

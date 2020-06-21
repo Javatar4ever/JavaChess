@@ -1,5 +1,6 @@
 package com.teo.chess.pieces;
 
+import com.teo.chess.Direction;
 import com.teo.chess.Location;
 import com.teo.chess.Move;
 import com.teo.chess.MoveType;
@@ -28,22 +29,22 @@ public class Queen extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x - 1, y - 1), -1, -1)); //up left
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x - 1, y - 1), Direction.UP_LEFT));
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x + 1, y - 1), 1, -1)); //up right
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x + 1, y - 1), Direction.UP_RIGHT));
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x - 1, y + 1), - 1, 1)); //down left
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x - 1, y + 1), Direction.DOWN_LEFT));
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x + 1, y + 1), 1, 1)); //down right
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x + 1, y + 1), Direction.DOWN_RIGHT));
 
         if (y > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x, y - 1), 0, -1)); //up
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x, y - 1), Direction.UP));
         if (x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x + 1, y), 1, 0)); //right
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x + 1, y), Direction.RIGHT));
         if (x > 0)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x - 1, y), -1, 0)); //left
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x - 1, y), Direction.LEFT));
         if (y < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CONTINUOUS, startLocation, new Location(x, y + 1), 0, 1)); //down
+            moveset.add(new Move(MoveType.CONTINUOUS, new Location(x, y + 1), Direction.DOWN));
 
         return moveset.toArray(new Move[moveset.size()]);
     }
@@ -55,22 +56,22 @@ public class Queen extends Piece {
         int y = startLocation.getBoardY();
 
         if (y > 0 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x - 1, y - 1), -1, -1)); //up left
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x - 1, y - 1), Direction.UP_LEFT));
         if (y > 0 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x + 1, y - 1), 1, -1)); //up right
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x + 1, y - 1), Direction.UP_RIGHT));
         if (y < Board.TILES_ACROSS - 1 && x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x - 1, y + 1), -1, 1)); //down left
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x - 1, y + 1), Direction.DOWN_LEFT));
         if (y < Board.TILES_ACROSS - 1 && x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x + 1, y + 1), 1, 1)); //down right
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x + 1, y + 1), Direction.DOWN_RIGHT));
 
         if (y > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x, y - 1), 0, -1)); //up
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x, y - 1), Direction.UP));
         if (x < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x + 1, y), 1, 0)); //right
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x + 1, y), Direction.RIGHT));
         if (x > 0)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x - 1, y), -1, 0)); //left
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x - 1, y), Direction.LEFT));
         if (y < Board.TILES_ACROSS - 1)
-            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, startLocation, new Location(x, y + 1), 0, 1)); //down
+            moveset.add(new Move(MoveType.CAPTURE_CONTINUOUS, new Location(x, y + 1), Direction.DOWN));
 
         return moveset.toArray(new Move[moveset.size()]);
     }
