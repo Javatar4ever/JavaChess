@@ -3,8 +3,9 @@ package com.teo.chess.graphics;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Spritesheet {
+public class Spritesheet implements Serializable {
 
     private final String path;
     public final int spriteSize;

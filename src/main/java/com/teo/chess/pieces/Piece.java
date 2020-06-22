@@ -5,7 +5,9 @@ import com.teo.chess.Move;
 import com.teo.chess.gui.PieceColor;
 import com.teo.chess.graphics.Sprite;
 
-public abstract class Piece {
+import java.io.Serializable;
+
+public abstract class Piece implements Serializable {
     private final PieceType type;
     private Location startLocation;
     private final Sprite sprite;

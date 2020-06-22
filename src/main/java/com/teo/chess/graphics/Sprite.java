@@ -1,6 +1,8 @@
 package com.teo.chess.graphics;
 
-public class Sprite {
+import java.io.Serializable;
+
+public class Sprite implements Serializable {
 
     private final int x;
     private final int y;

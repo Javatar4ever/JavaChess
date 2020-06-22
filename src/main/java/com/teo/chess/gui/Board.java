@@ -125,6 +125,11 @@ public class Board extends Canvas {
         movingPieces = new Piece[TILES_ACROSS][TILES_ACROSS];
     }
 
+    public void removePiece(Location location) {
+        int x = location.getBoardX();
+        int y = location.getBoardY();
+        staticPieces[y][x] = null;
+    }
     /**
      * Renders the board. Is only called at startup.
      */

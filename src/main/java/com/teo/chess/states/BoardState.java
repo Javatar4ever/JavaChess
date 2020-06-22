@@ -4,7 +4,9 @@ import com.teo.chess.Location;
 import com.teo.chess.gui.Board;
 import com.teo.chess.pieces.Piece;
 
-public class BoardState {
+import java.io.Serializable;
+
+public class BoardState implements Serializable {
 
     private Piece[][] pieces = new Piece[Board.TILES_ACROSS][Board.TILES_ACROSS];
 

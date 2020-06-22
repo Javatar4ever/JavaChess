@@ -2,8 +2,10 @@ package com.teo.chess;
 
 import com.teo.chess.gui.Board;
 
+import java.io.Serializable;
 
-public class Location {
+
+public class Location implements Serializable {
 
     private final int boardX;
     private final int boardY;
